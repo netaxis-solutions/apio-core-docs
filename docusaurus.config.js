@@ -58,6 +58,23 @@ const config = {
         },
       }),
     ],
+    [
+      'redocusaurus',
+      {
+        // Plugin Options for loading OpenAPI files
+        specs: [
+          {
+            spec: './openapi/openapi.yaml',
+            route: '/api/',
+          },
+        ],
+        // Theme Options for modifying how redoc renders them
+        theme: {
+          // Change with your site colors
+          primaryColor: '#1890ff',
+        },
+      },
+    ],
   ],
 
   themeConfig:
@@ -78,7 +95,7 @@ const config = {
             position: 'left',
             label: 'Docs',
           },
-          {to: '/blog', label: 'API', position: 'left'},
+          {to: '/api', label: 'API', position: 'left'},
           {to: '/blog', label: 'FAQ', position: 'left'},
           // {to: '/blog', label: 'Blog', position: 'left'},
           // {
