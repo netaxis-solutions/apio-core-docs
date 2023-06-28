@@ -42,10 +42,64 @@ If no rules exists or no rule match, the user is not created. And the authentica
 
 ### OpenID Connect
 
+OpenID Connect (OIDC) is an authentication protocol built on top of OAuth 2.0 that can be used to securely sign users in to web applications.
+
+![SSO oidc](img/new-sso-oidc.png)
+
+| Attribute | Description |
+| --------- | ----------- |
+| Auth. endpoint | The URL of the authentication endpoint. |
+| Scope | The scope of the authentication. |
+| Token endpoint | The URL of the token endpoint. |
+| Client ID | The client ID. |
+| Client secret | The client secret. |
+| Redirect URI | The redirect URI. |
+| Token issuer | The issuer of the token. |
+| Provider | Some specifics for certain implementation. |
+
 ### SAML
+
+Security Assertion Markup Language (SAML) is an open standard for exchanging authentication and authorization data between parties, in particular, between an identity provider and a service provider.
+
+![SSO saml](img/new-sso-saml.png)
+
+| Attribute | Description |
+| --------- | ----------- |
+| IdP Metadata | The metadata describing the IdP. (e.g &lt;EntityDescriptor xmlns="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:shibmd="urn:mace:shibboleth:metadata:1.0" entityID="https://idp.clearlogin.co.uk"&gt;...&lt;/EntityDescriptor&gt;) |
+| SP Entity ID | The entity ID of the SP. |
+| SP Assertion Consumer Service URL | The URL of the SP assertion consumer service. |
+| SP x509 certificate | The x509 certificate of the SP. |
+| SP private key | The private key of the SP. |
+| SP valid redirects | The list of valid redirects. |
+
+:::tip
+
+Most the details from here are available in the IdP configuration page dedicated to the application entry.
+
+:::
 
 ### Webseal
 
+WebSeal is a reverse proxy server that provides authentication and authorization services for a web application.
+
+This proxy adds HTTP headers in the client traffic with the user information. (e.g. `iv-user`)
+
+APIO core trusts these headers only if the Webseal proxy IP appears in the list of trusted source IPs.
+
+| Attribute | Description |
+| --------- | ----------- |
+| HTTP header with client IP | Used to fetch the (webseal) client IP address when the instance is behind some reverse proxy. (e.g X-Real-IP) |
+| Trusted source IPs | List of trusted source IPs. |
+
 ### Soap Token
 
+Proprietary protocol used by custom company implementation of IdP.
+
 ### Broadsoft
+
+![SSO broadsoft](img/new-sso-broadsoft.png)
+
+| Attribute | Description |
+| --------- | ----------- |
+| Proxies | Map the proxies allowed to authenticate via this provider. And to which gateway they need to go. |
+| Authorisation handler | The authorisation handler to use. When set to `map to broadsoft user`, the `Username mapping template` can be used to transform the SSO username into Broadsoft username and attributes from Broadsoft bound to the APIO core user. |

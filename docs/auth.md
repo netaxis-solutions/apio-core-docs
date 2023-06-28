@@ -8,6 +8,12 @@ APIO core supports multiple authentication mechanisms. You can use them to authe
 
 At the end of each authentication process, the user gets a JWT token. The JWT token is used to authenticate the API calls by adding it to the `Authorization` header (Bearer [authentication scheme](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication)) of the HTTP requests.
 
+:::info
+
+Refer to the [configuration documentation](configuration/sso) to configure the authentication mechanisms.
+
+:::
+
 ## Local users 
 
 Local users are users that are stored in the database of the APIO core. They are the default users of the APIO core. They are used to authenticate the users of the APIO core UI and to authenticate the API calls.
