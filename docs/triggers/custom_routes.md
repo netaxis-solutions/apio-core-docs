@@ -56,6 +56,18 @@ All proxied routes require the user to be authenticated.
 
 Some nodes are especially usefull in the context of the proxied routes, e.g. [Proxy user session](../workflows/nodes/#broadsoft-proxy-session-call) node, to use the user session to make calls to the Broadsoft gateway.
 
+### API documentation
+
+The Broadsoft gateway API is described [here](https://apio-docs.bxl.netaxis.be/).
+
+:::caution
+
+The documentation mention paths with a prefix `/api/v1` but ther are exposed under the `/api/v01/p{id}` path on the proxy.
+
+e.g `/api/v1/tenants/` is exposed at `/api/v01/p{id}/tenants/`.
+
+:::
+
 ## Documentation
 
 The custom routes are documented in the OpenAPI generated specification. The specification is available at the `/api/v01/custom_routes.swagger.yml` path. For example, `https://api.example.com/api/v01/custom_routes.swagger.yml`.
