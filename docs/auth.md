@@ -83,7 +83,8 @@ The `token` is the M2M token of the user. It is meant to be immutable and it can
 ```http
 HTTP/1.1 200 OK
 {
-    "2fa_payload": "..."
+    "2fa_payload": "...",
+    "option": "email | totp"
 }
 ```
 
@@ -122,4 +123,3 @@ HTTP/1.1 200 OK
 A new refresh token is sent only when the refresh token is about to expire.
 
 :::
-

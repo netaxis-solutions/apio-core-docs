@@ -103,6 +103,10 @@ const config = {
           //   label: 'GitHub',
           //   position: 'right',
           // },
+          // multiple version handling
+          // {
+          //   type: 'docsVersionDropdown',
+          // },
         ],
       },
       footer: {
