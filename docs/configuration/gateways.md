@@ -10,6 +10,16 @@ This is useful to keep the client configuration in one place and reuse it in mul
 
 ![HTTP client](img/new-gateway.png)
 
+## Health checks
+
+If enabled, the health check is executed periodically. The health check is a simple HTTP call to the `health_check_url`. If the call fails, the client is marked as unhealthy (on the dashboard and gateways page) and backup url's may be used as failover.
+
+:::info
+
+Unhealthy clients are still used in the HTTP calls nodes.
+
+:::
+
 ## Authentication methods
 
 ### OAuth1
