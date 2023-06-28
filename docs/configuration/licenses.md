@@ -8,4 +8,10 @@ APIO core has a proprietary license. License are delivered by Netaxis support te
 
 These licenses can be generated on [Apio dev](https://apio-dev.bxl.netaxis.be) and on internal Netaxis platforms.
 
+:::caution
+
+The customer name should contain the customer name and the platform / environment name. (e.g `Google - Production`)
+
+:::
+
 ![License](img/license.png)
