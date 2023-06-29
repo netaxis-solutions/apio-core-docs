@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapio_core=self.webpackChunkapio_core||[]).push([[8551],{13244:o=>{o.exports=JSON.parse('{"permalink":"/apio-core-docs/blog/tags/docusaurus","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}')}}]);
