@@ -8,7 +8,7 @@ Every request sent to APIO core is logged in the database. So a user can see the
 
 ## Search
 
-The possible search criteria are:
+The possible search criteria are (they can be influenced by the combination of modules activated in the GUI section of the configuration):
 
 - **Workflow**: The activity of the request.
 - **Owner**: The user who triggered the request.
@@ -34,3 +34,6 @@ When the Broadsfot integration is enabled, and the request is not overloaded by 
 
 ## Request details
 
+## Proxied request details
+
+Because there is no workflow executed on this request, the view is very simplified.
