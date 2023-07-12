@@ -30,9 +30,66 @@ Page: `/transactions/config/startup_events`
 
 The custom routes can be synchronous or asynchronous. The synchronous routes are executed in the same thread as the HTTP request. The asynchronous routes are executed in a separate thread.
 
-The synchronous routes are useful when the workflow is fast. The asynchronous routes are useful when the workflow is slow. The asynchronous routes are also useful when the workflow is long-running. In this case, the workflow can be launched in a separate thread and the HTTP request can be closed. The workflow can continue to run in the background.
+The synchronous routes are useful when the workflow is fast. The asynchronous routes are useful when the workflow is slow or long-running. In this case, the workflow can be launched in a separate thread and the HTTP request can be closed. The workflow can continue to run in the background.
 
-When the route is asynchronous, the response is sent immediately. The response contains the ID of the transaction. The transaction can be used to track the status of the workflow. (via the API `GET /api/v01/transactions/{id}` or via the UI `/transactions/{id}`)
+When the route is asynchronous, the response is sent immediately. The response contains the ID and the GUID of the transaction. The transaction can be used to track the status of the workflow. (via the API `GET /api/v01/transactions/{id}` or via the UI `/transactions/{id}`)
+
+### Asynchronous response sample
+
+```json
+{
+    "id": 1,
+    "guid": "70195486-8934-4a31-a504-a97a72c7f322"
+}
+```
+
+### Synchronous response
+
+When the route is synchronous, the response is sent when the workflow reach an [end](../workflows/nodes#end) node. The response is evaluated based on the context key `*response*` (set with a [context setter](../workflows/nodes#context-setter) node for instance).
+
+The value has to be a JSON object with the following attributes:
+
+| Attribute | Description |
+| --------- | ----------- |
+| status | The HTTP status code of the response. |
+| body | The body of the response. It can be a string or a JSON object. |
+| headers | A JSON object with the headers to be added in the response. |
+
+:::tip
+
+Because there is a match in the structure of the output of [http call nodes](../workflows/nodes#http-call) and the structure of the response of the custom routes, the http call nodes can output directly in the `*response*` context key without further processing.
+
+:::
+
+:::tip
+
+If the `*response*` value is not a valid JSON object, the workflow can be closed succesfully but the response will have a status 500 (Internal Server Error).
+
+:::
+
+#### Sample JSON response
+
+```json
+{
+  "status": 200,
+  "body": {
+    "message": "hello, world"
+  }
+}
+```
+
+#### Sample for an attachment download
+
+```json
+{
+  "status": 200,
+  "body": "hello, world",
+  "headers": {
+      "content-disposition": "attachment; filename=\"hello.txt\"",
+      "content-type": "text/plain"
+  }
+}
+```
 
 ## Authenticated routes
 
