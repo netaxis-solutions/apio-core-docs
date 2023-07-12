@@ -67,7 +67,18 @@ If the `*response*` value is not a valid JSON object, the workflow can be closed
 
 :::
 
-#### Sample JSON response
+#### Samples Response
+
+<table>
+<thead>
+<tr>
+<th> Description </th> <th> Value of *response* key </th> <th> Response </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>JSON response</td>
+<td>
 
 ```json
 {
@@ -78,7 +89,48 @@ If the `*response*` value is not a valid JSON object, the workflow can be closed
 }
 ```
 
-#### Sample for an attachment download
+</td>
+<td>
+
+```http
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "message": "hello, world"
+}
+```
+
+</td>
+</tr>
+
+<tr>
+<td>Plain response</td>
+<td>
+
+```json
+{
+  "status": 200,
+  "body": "hello, world"
+}
+```
+
+</td>
+<td>
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/plain
+
+hello, world
+```
+
+</td>
+</tr>
+
+<tr>
+<td>File attachment response</td>
+<td>
 
 ```json
 {
@@ -90,6 +142,24 @@ If the `*response*` value is not a valid JSON object, the workflow can be closed
   }
 }
 ```
+
+</td>
+<td>
+
+```http
+HTTP/1.1 200 OK
+Content-Type: text/plain
+Content-Disposition: attachment; filename="hello.txt"
+
+hello, world
+```
+
+</td>
+</tr>
+
+</tbody>
+</table>
+
 
 ## Authenticated routes
 
