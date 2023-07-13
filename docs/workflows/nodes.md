@@ -312,6 +312,8 @@ A manual action is usually associated to a user role. So only users with the rol
 | form_input | [optional] a set of fields to be filled by the user when executing the action. |
 | notification_email_template | [optional] The mail template to send to the users with the role. |
 
+See the [manual actions](advanced/manual_actions) section for more details about the setup and the usage.
+
 ## Cancel manual action
 
 Technical name: `cancel_manual_action`
@@ -519,8 +521,6 @@ Multiple timers can be started with the same key. If a timer is started with the
 Technical name: `stop_timer`
 
 Stop a timer.
-
-
 
 ## Generate OTT
 
