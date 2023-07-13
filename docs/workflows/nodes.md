@@ -534,8 +534,14 @@ Generate a one-time token and assign it to a context variable. One-time token ar
 | --- | --- |
 | scope | The scope of the generated one-time token. <br /> This is a string which is used to identify the action to perform. (a manual action, a reset password etc...) |
 | output_context_key | The context variable to assign the generated one-time token to. |
-| expiry_date | [optional] The expiry date of the generated one-time token. <br /> This is a date in the format `YYYY-MM-DD HH:mm:ss`. |
+| expiry_date | [optional] The expiry date of the generated one-time token. <br /> This is a time duration. It can a be a number (interpreted as a number of seconds) or it's parsed using [time.ParseDuration](https://pkg.go.dev/time#ParseDuration). |
 | details | [optional] Additional details to store with the generated one-time token. <br /> This is a JSON object. |
+
+:::tip
+
+The default expiry date for reset password one-time token is 20 minutes.
+
+:::
 
 ## Generate random string
 
