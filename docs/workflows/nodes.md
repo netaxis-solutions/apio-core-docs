@@ -14,6 +14,8 @@ Every workflow must have one and only one start node.
 
 This is a technical node which has no attributes.
 
+![start node](img/node-start.png)
+
 ## End
 
 Technical name: `end`
@@ -22,6 +24,14 @@ Mark the end of a workflow.
 
 A workflow has to contain at least one end node. But it can have more than one end node.
 Especially in `macro` workflows, it is common to have multiple end nodes with names named after possible outputs.
+
+![end node](img/node-end.png)
+
+## Generic node
+
+Except a very few of them, nodes have a generic representation.
+
+![generic node](img/node-generic.png)
 
 ## HTTP call
 
