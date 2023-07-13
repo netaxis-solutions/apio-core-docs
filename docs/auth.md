@@ -129,3 +129,34 @@ HTTP/1.1 200 OK
 A new refresh token is sent only when the refresh token is about to expire.
 
 :::
+
+# Reset password
+
+Local users and Broadsoft users (if the Broadsoft platform is integrated as IdP) can reset their password using the reset password API.
+
+The reset password API sends an email to the user with a link to reset the password. By default the link is valid for 20 minutes.
+
+The email template is selected by the `reset_password_email_template` configuration parameter in the GUI section (see [configuration documentation](configuration/gui)).
+
+The template name is `mails.reset_password` by default, but it can contain the following variables to customise the email based on criteria:
+
+| Variable | Origin | Description |
+| -------- | ------ | ----------- |
+| `{ui_id}` | Request body | The ID of the UI interface. <br /> This to align the branding of a different mail with a different portal. |
+| `{ui_language}` | Request body | The language of the UI interface. |
+| `{proxy}` | Request body | A proxy name used when multiple Broadworks proxies coexists in the same platform. |
+| `{language}` | User profile | The language of the user. |
+
+e.g `mails.reset_password.{ui_id}.{language}` or `mails.reset_password.{ui_id}`.
+
+:::caution
+
+For security reasons, the reset password API does not return any error if the user does not exist.
+
+:::
+
+:::info
+
+Other users (SSO users) can reset their password using the reset password API of the IdP.
+
+:::
