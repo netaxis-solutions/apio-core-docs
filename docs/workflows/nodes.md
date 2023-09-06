@@ -33,6 +33,8 @@ Except a very few of them, nodes have a generic representation.
 
 ![generic node](img/node-generic.png)
 
+Two outputs have a special role here. When the task ends in error and `skip` or `rollback` are visible and connected, then the task details (in the instance details page) will show a button to skip and/or rollback the task alongside the `Replay` button.
+
 ## HTTP call
 
 Technical name: `http_call`
