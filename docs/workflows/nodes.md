@@ -70,6 +70,13 @@ If the returned status code is not in the `http_codes` attribute, and the `error
 | cache_ttl | [optional] The cache timeout to use. |
 | http_codes | [optional] The HTTP codes to consider as outputs of the nodes. <br /> The `*` can be used to include multiple codes. |
 | headers | [optional] Extra headers of the request. |
+| retry policy | [optional] The retry policy to use.<br />- **Conditions**: the set of criteria which will trigger a retry.<br />- **Delay**: The delay to be introduced between 2 attempts.<br />- **Max time**: The maximum number of attempts.  |
+
+:::info Retry policy
+
+If the delay is not `immediate`, the retry will be executed asynchronously using a `timer`. So the process may continue to *another* node. This is not suitable for *synchronous* calls.
+
+:::
 
 ## REST call
 
