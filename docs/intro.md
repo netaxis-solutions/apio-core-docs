@@ -10,7 +10,7 @@ APIO core is a simple workflow engine with great extensibility.
 
 Get started by **creating a new workflow**.
 
-Go to [Activity Editor](/transactions/config/activities/editor).
+Go to <a href="/../../transactions/config/activities/editor" target="_blank">Activity Editor</a>.
 
 Create a new activity named `demo`.
 
@@ -38,7 +38,7 @@ Save
 
 ### Create a new route endpoint
 
-Go to [Startup events](/transactions/config/startup_events).
+Go to <a href="/../../transactions/config/startup_events" target="_blank">Startup events</a>.
 
 Create a new route.
 

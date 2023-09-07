@@ -6,7 +6,7 @@ sidebar_position: 2
 
 Most fields in the nodes can be evaluated as templates. The template engine is [Jinja2](https://jinja.palletsprojects.com/) and expose all the [buit-in's](https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters) of the language.
 
-To debug easily such fields, you can use the [playground](/help/template-playground).
+To debug easily such fields, you can use the <a href="/../../help/template-playground" target="_blank">playground</a>.
 
 It is extended with the following elements.
 
