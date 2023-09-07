@@ -35,6 +35,8 @@ Except a very few of them, nodes have a generic representation.
 
 Two outputs have a special role here. When the task ends in error and `skip` or `rollback` are visible and connected, then the task details (in the instance details page) will show a button to skip and/or rollback the task alongside the `Replay` button.
 
+In their details page, nodes support custom colors which allow to visually identify and group them in the workflow editor.
+
 ## HTTP call
 
 Technical name: `http_call`
@@ -84,7 +86,7 @@ If the delay is not `immediate`, the retry will be executed asynchronously using
 
 Technical name: `rest_call`
 
-Legacy node. It behave exactly like `http_call` but it extracts a special attribute `_record_internal_id` from the response body (this is a special case for Broadsoft gateway to link with its internal audit record for debugging).
+**Legacy node**. It behave exactly like `http_call` but it extracts a special attribute `_record_internal_id` from the response body (this is a special case for Broadsoft gateway to link with its internal audit record for debugging).
 
 <b>Prefer [http_call](#http-call) when possible.</b>
 
@@ -824,6 +826,30 @@ Or if the workflow stops and restarts on a different node.
 | local_files | The list of local files to use. <br/> * For `get` and `put` commands, it's the list of local files to download / upload to. |
 | attach | If set to `true`, the downloaded files are attached to the current request. Use the local file system otherwise |
 | output_context_key | The context variable to assign the result to. |
+
+## Go to
+
+Technical name: `goto`
+
+Jump to another node in the workflow. This can be useful when multiple path converge to a single set of nodes (e.g a set of nodes to handle errors). It avoids cluttering the workflow with multiple arrows to the same set of nodes.
+
+![goto](img/node-goto.png)
+
+| Attribute | Description |
+| --- | --- |
+| target | The name of the node to jump to. |
+
+## Note
+
+Technical name: `note`
+
+A note is a special node without any logic, entrypoint nor output. It's used to add a comment or a description in the workflow.
+
+:::tip
+
+One can put a note with the same background color than a set of nodes to describe a feature or a behaviour accomplished by a subset of nodes inside a workflow.
+
+:::
 
 ## Entity
 
