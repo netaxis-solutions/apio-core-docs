@@ -134,6 +134,16 @@ POST /api/v01/transactions/callbacks/:callback_id HTTP/1.1
 | async_output_context_key | The context variable to assign the result of the callback to. |
 | timeout | [optional] The timeout of the asynchronous call. |
 
+### Processing of the callback
+
+When a callback is received,
+
+* either the instance is already in the database then the external callback is created with the status `LOCKED` (to mark that no other process can work on it)
+* or the instance is not yet persisted in the database and the processing should be postponed, then the external callback is created in status `READY` (to mark the event is ready to be processed but miss an external dependency, here the instance context in the database.<br/>
+The event will be processed automatically, as soon as the instance is persisted in the database.
+
+When the processing of the external event is complete, the status move to `CONSUMED`.
+
 ## XML call
 
 Technical name: `xml_call`
