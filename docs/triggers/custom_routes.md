@@ -19,9 +19,9 @@ Page: `/transactions/config/startup_events`
 | Group | The group of the route. |
 | JSON Schema | The request body can be validated with a JSON schema before launching the workflow. |
 | Output JSON Schema | The response body can be described for the OpenAPI generator. |
-| Error handler | The workflow to launch when an error occurs. |
-| Enabled | The route is enabled. |
-| Sync | The route is synchronous. |
+| Error handler | The workflow to launch when a blocking error occurs (see [here](#error-handler)).  |
+| Enabled | The route is enabled.  |
+| Sync | The route is synchronous (see [here](#synchronous-vs-asynchronous-routes)).  |
 | Public | The route does not require authentication. |
 | Support bulk | The route supports bulk requests. |
 | Bulk options | The options of the bulk requests. |
@@ -33,6 +33,23 @@ The custom routes can be synchronous or asynchronous. The synchronous routes are
 The synchronous routes are useful when the workflow is fast. The asynchronous routes are useful when the workflow is slow or long-running. In this case, the workflow can be launched in a separate thread and the HTTP request can be closed. The workflow can continue to run in the background.
 
 When the route is asynchronous, the response is sent immediately. The response contains the ID and the GUID of the transaction. The transaction can be used to track the status of the workflow. (via the API `GET /api/v01/transactions/{id}` or via the UI `/transactions/{id}`)
+
+## Error handler
+
+The error handler is a workflow that is executed when a blocking error occurs. You can see that as a try/catch mechanism.
+
+It receives a `{request}` containing the following attributes:
+
+| Attribute | Description |
+| --------- | ----------- |
+| instance | the top parent instance |
+| context | the top parent context |
+| request | the initial request received by the custom route |
+| errors | the list of errors attached to the top parent instance |
+
+In case of a synchronous route, the error handler is executed before sending the response. So the response can be customized based on the error. When the error workflow completes succesfully, the context keys `*response*` and `*cb_response*` are moved from the error handler instance to the top parent instance, and then used to build the response.
+
+In case of an asynchronous route, the error handler can be used to send a notification or a callback to the user or to the administrator.
 
 ### Asynchronous response sample
 
