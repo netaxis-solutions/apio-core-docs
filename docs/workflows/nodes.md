@@ -587,7 +587,7 @@ Generate a random string and assign it to a context variable.
 | lowercase | Whether to include lowercase characters in the generated string. |
 | uppercase | Whether to include uppercase characters in the generated string. |
 | digits | Whether to include digits in the generated string. |
-| special_chars | Whether to include special characters in the generated string. |
+| special_chars | Whether to include special characters in the generated string. Here the special character set: `!@#$%&*`. |
 | length | The length of the generated string. |
 | output_context_key | The context variable to assign the generated string to. |
 
