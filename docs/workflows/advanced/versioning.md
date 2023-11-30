@@ -32,8 +32,12 @@ In the workflow editor, on the version you want to activate, click on the button
 
 The next instance of the workflow will use this version.
 
+![activate version](img/activate-version.png "activate version")
+
 ## Rename or delete a version
 
 In the workflow editor, on the bottom of the page, you can see a list of all the versions of the workflow.
 
 You can rename or delete a version by clicking on the corresponding button on the right.
+
+![rename delete versions](img/rename-delete-versions.png "rename delete versions")
