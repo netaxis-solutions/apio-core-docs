@@ -46,7 +46,7 @@ The backup doesn't require to stop the APIO core software.
 
 :::caution
 
-The backup file can be very large. It is recommended to compress it.<br\>
+The backup file can be very large. It is recommended to compress it.
 If the database runs on a docker container, avoid generating the backup file in the container.
 
 :::
