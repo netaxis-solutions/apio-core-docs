@@ -106,3 +106,19 @@ By default the username is 'netaxis'.
 The password is automatically generated and displayed in the console. You must copy it and store it in a safe place.
 
 :::
+
+## Put the instance down
+
+### The Docker way
+
+```bash
+$ docker-compose down -v
+```
+
+## Restart the instance
+
+### The Docker way
+
+```bash
+$ docker-compose down -v; docker-compose up -d
+```
