@@ -204,6 +204,12 @@ So the call will fail if the original user session is not allowed to do the call
 
 :::
 
+:::caution
+
+The node rely on the currently running session of the user. If the user is not logged in or his session is expired, the node will fail. So it's recommended to use this node in a workflow which is triggered by a `synchronous call`. It may also limit the possibility to `replay` the workflow.
+
+:::
+
 ![proxy session call](img/node-proxy-session-call.png)
 
 | Attribute | Description |
