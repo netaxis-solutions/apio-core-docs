@@ -23,3 +23,9 @@ Scheduled jobs have no owner user. They are executed by the system.
 | Scheduler entry | The expression that defines when the job is executed. |
 | Activity | The activity that is executed by the job. |    
 | Request body | The request body of the activity. |
+
+:::caution
+
+The scheduler run the tasks in the UTC timezone. So you should consider the timezone when you define the scheduler entry.
+
+:::
