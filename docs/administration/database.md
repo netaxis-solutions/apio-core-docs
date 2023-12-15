@@ -12,6 +12,12 @@ The database can be installed on the same server as the APIO core software or on
 
 We recommend the usage of the [bitnami PostgreSQL docker image](https://hub.docker.com/r/bitnami/postgresql) to run the database. The documentation can be found [here](https://github.com/bitnami/containers/tree/main/bitnami/postgresql#how-to-use-this-image).
 
+:::caution
+
+APIO core requires the database to be set with the `ETC/UTC` timezone. Docker images provided by bitnami are already set with this timezone. If your setup is different, ensure the timezone is set correctly (command `SHOW TIMEZONE`)
+
+:::
+
 ## Replication
 
 Postgresql support streaming replication and the image provided by bitnami support it. The documentation can be found [here](https://github.com/bitnami/containers/tree/main/bitnami/postgresql#setting-up-a-streaming-replication).
