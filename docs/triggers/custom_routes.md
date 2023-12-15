@@ -177,6 +177,48 @@ hello, world
 </tbody>
 </table>
 
+#### Downloadable file
+
+If the workflow build up a file (e.g [csv](../workflows/nodes#csv-file), [Excel](../workflows/nodes#excel-file) etc...) and the response has to be a downloadable file, the context key `*doc_response*` has to be set with the filename of the file built by the workflow.
+
+The status code of the response is set to 200 (OK) and the content type is set to the MIME type of the file.
+
+For the interest of the reader, here a basic workflow definition that builds a CSV file and returns it as a downloadable file.
+
+```json
+{
+	"cells": {
+		"start": {
+			"original_name": "start",
+			"outputs":       ["ok"]
+		},
+		"a": {
+			"original_name": "create_csv",
+			"params": {
+				"filename":   "doc1.csv",
+				"inputs": "[[\"hello\", \"world\"], [\"foo\", \"bar\"]]"
+			},
+			"outputs": ["ok"]
+		},
+		"b": {
+			"original_name": "context_setter",
+			"params": {
+				"key":   "*doc_response*",
+				"value": "doc1.csv"
+			},
+			"outputs": ["ok"]
+		},
+		"end": {
+			"original_name": "end"
+		}
+	},
+	"transitions": [
+		["start.ok", "a"],
+		["a.ok", "b"],
+		["b.ok", "end"]
+	]
+}
+```
 
 ## Authenticated routes
 
