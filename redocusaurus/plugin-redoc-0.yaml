@@ -89,9 +89,15 @@ paths:
                   access_token:
                     type: string
                     description: This JWT can be used to make further API calls.
+                  access_token_expires_in:
+                    type: number
+                    description: the number of seconds before the access token expires
                   refresh_token:
                     type: string
                     description: This JWT can be used to request a new access_token.
+                  refresh_token_expires_in:
+                    type: number
+                    description: the number of seconds before the refresh token expires
                   email_set:
                     type: boolean
                     description: Indicates if the user has a mail set of not
@@ -243,6 +249,14 @@ paths:
                   access_token:
                     type: string
                     description: a JWT to be used for further API calls
+                  access_token_expires_in:
+                    type: number
+                    description: the number of seconds before the access token expires
+                  refresh_token:
+                    type: string
+                    description: >-
+                      a JWT to be used to request a new access token, when the
+                      current one will soon expire
         '401':
           description: >-
             the refresh token is expired or revoked, a new login should take
@@ -255,6 +269,24 @@ paths:
                   error:
                     type: string
                     description: error message
+  /api/v01/auth/session_token_public_key:
+    get:
+      summary: fetch the public key to validate the session token
+      description: >
+        This endpoint is used to fetch the public key to validate the session
+        token.
+
+        The public key is used to validate the signature of the access and the
+        refresh token.
+      responses:
+        '200':
+          description: the public key
+          content:
+            application/x-pem-file:
+              schema:
+                type: string
+                format: binary
+                description: the public key in PEM format
   /api/v01/auth/login_{name}:
     post:
       summary: authenticate users using SSO
@@ -3310,6 +3342,28 @@ paths:
     post:
       summary: generate a license
       description: Generate a new license
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                customer:
+                  type: string
+                  minLength: 4
+                  description: customer and platform identifier (e.g Netaxis PROD)
+                key:
+                  type: string
+                  minLength: 4
+                  description: the private key to be used in PEM format
+                demo:
+                  type: boolean
+                days:
+                  type: number
+                  description: the number of days the license is valid
+                max_activities:
+                  type: number
+                  description: the maximum number of activities allowed
       responses:
         '200':
           description: license generated
