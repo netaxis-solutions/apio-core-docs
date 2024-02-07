@@ -17,7 +17,7 @@ The APIO core comes with a GUI that allows you to manage the APIO core. This GUI
 | Force 2-factor auth. | Whether the 2-factor *by mail* authentication should be enforced for all users with a mail address. |
 | 2-factor auth. email template | The mail template used to send the 2-factor authentication code. |
 | 2-factor auth. HTTP header | Use a custom HTTP header from the request to get the client source IP address (used to trust the source in the 2-factor auth. process). |
-| 2-factor auth. TOTP issue | The TOTP issuer used to generate the TOTP QR code. |
+| 2-factor auth. TOTP issuer | The TOTP issuer used to generate the TOTP QR code. |
 | Allowed origins | The list of allowed origins for the CORS requests. |
 | Max session idle timeout | The maximum time a session can be idle before being closed (in minutes). |
 | Enable WebauthN passkeys | Whether the WebauthN passkeys are enabled. |
