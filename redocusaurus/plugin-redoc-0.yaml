@@ -89,15 +89,9 @@ paths:
                   access_token:
                     type: string
                     description: This JWT can be used to make further API calls.
-                  access_token_expires_in:
-                    type: number
-                    description: the number of seconds before the access token expires
                   refresh_token:
                     type: string
                     description: This JWT can be used to request a new access_token.
-                  refresh_token_expires_in:
-                    type: number
-                    description: the number of seconds before the refresh token expires
                   email_set:
                     type: boolean
                     description: Indicates if the user has a mail set of not
@@ -249,14 +243,6 @@ paths:
                   access_token:
                     type: string
                     description: a JWT to be used for further API calls
-                  access_token_expires_in:
-                    type: number
-                    description: the number of seconds before the access token expires
-                  refresh_token:
-                    type: string
-                    description: >-
-                      a JWT to be used to request a new access token, when the
-                      current one will soon expire
         '401':
           description: >-
             the refresh token is expired or revoked, a new login should take
@@ -287,6 +273,57 @@ paths:
                 type: string
                 format: binary
                 description: the public key in PEM format
+  /api/v01/auth/2fa_totp:
+    post:
+      summary: validate 2FA response
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: the code provided to the user
+                2fa_payload:
+                  type: string
+                  description: the JWT returned by the API call to the login endpoint
+              required:
+                - code
+                - 2fa_payload
+      responses:
+        '200':
+          description: the user is authenticated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: >
+                      this token is meant for API calls machine-2-machine and is
+                      available if the user choose to generate one. This token
+                      never expires and is valid as long as it is not
+                      regenerated. (usual situations when the API token is
+                      regenerated: reset password, user account revocation, user
+                      choose generate a new token)
+                  access_token:
+                    type: string
+                    description: This JWT can be used to make further API calls.
+                  refresh_token:
+                    type: string
+                    description: This JWT can be used to request a new access_token.
+        '400':
+          description: the input data are rejected
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    description: error message
   /api/v01/auth/login_{name}:
     post:
       summary: authenticate users using SSO
@@ -1930,6 +1967,9 @@ paths:
                   local_user:
                     type: boolean
                     description: the user is managed locally or by another system.
+                  support_reset_password:
+                    type: boolean
+                    description: the user can reset its password.
                   modules:
                     type: array
                     items:
@@ -1965,9 +2005,75 @@ paths:
                   token:
                     type: string
                     description: persistent token for API calls
+                  properties:
+                    type: object
+                    description: additional properties
+                  trusted_locs:
+                    type: object
+                    properties:
+                      id:
+                        type: number
+                      user_id:
+                        type: number
+                      ip:
+                        type: string
+                      user_agent:
+                        type: string
+                      expiry_date:
+                        type: string
+                        format: date-time
+                      trusted:
+                        type: boolean
+                      last_use:
+                        type: string
+                        format: date-time
+                      created_on:
+                        type: string
+                        format: date-time
                   timezone:
                     type: string
                     description: timezone associated to the user (if any)
+                  entity:
+                    type: string
+                    description: the entity associated to the user (if any)
+                  first_name:
+                    type: string
+                  last_name:
+                    type: string
+                  mobile_number:
+                    type: string
+                  two_fa_option:
+                    type: string
+                    enum:
+                      - none
+                      - email
+                      - totp
+                    description: the two factor authentication option
+                  login_attempts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        user_id:
+                          type: number
+                        created_at:
+                          type: string
+                          format: date-time
+                        ip:
+                          type: string
+                        user_agent:
+                          type: string
+                        failure_reason:
+                          type: string
+                        deletegated_to:
+                          type: string
+                        success:
+                          type: boolean
+                  last_use:
+                    type: string
+                    format: date-time
     put:
       summary: update user own attributes
       requestBody:
@@ -1992,6 +2098,11 @@ paths:
                   type: string
                 token:
                   type: boolean
+                two_fa_option:
+                  type: string
+                  enum:
+                    - email
+                  nullable: true
               additionalProperties: false
       responses:
         '200':
@@ -2000,6 +2111,53 @@ paths:
           description: invalid attributes
         '401':
           description: invalid credentials
+  /api/v01/system/users/local/totp:
+    get:
+      summary: TOTP QR code
+      responses:
+        '200':
+          description: TOTP QR code
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  url:
+                    type: string
+                    description: the URL to be used to generate the QR code
+                  img:
+                    type: string
+                    description: the base64 encoded image of the QR code
+                  hmac:
+                    type: string
+                    description: the HMAC secret to be used to generate the TOTP
+    put:
+      summary: enable TOTP
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: the code generated by the TOTP app
+                url:
+                  type: string
+                  description: the URL to be used to generate the QR code
+                hmac:
+                  type: string
+                  description: the HMAC secret to be used to generate the TOTP
+              required:
+                - code
+                - url
+                - hmac
+              additionalProperties: false
+      responses:
+        '200':
+          description: TOTP enabled
+        '400':
+          description: invalid code
   /api/v01/system/users:
     get:
       summary: search for users
@@ -2052,6 +2210,9 @@ paths:
                           type: string
                           format: date-time
                         updated_on:
+                          type: string
+                          format: date-time
+                        last_use:
                           type: string
                           format: date-time
                   total_count:
@@ -2239,6 +2400,38 @@ paths:
                   mobile_number:
                     type: string
                     description: user mobile number
+                  two_fa_option:
+                    type: string
+                    enum:
+                      - none
+                      - email
+                      - totp
+                    description: the two factor authentication option
+                  login_attempts:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        user_id:
+                          type: number
+                        created_at:
+                          type: string
+                          format: date-time
+                        ip:
+                          type: string
+                        user_agent:
+                          type: string
+                        failure_reason:
+                          type: string
+                        deletegated_to:
+                          type: string
+                        success:
+                          type: boolean
+                  last_use:
+                    type: string
+                    format: date-time
                   admin_of:
                     type: array
                     items:
@@ -2805,6 +2998,45 @@ paths:
       responses:
         '200':
           description: request traces
+  /api/v01/apio/stats:
+    get:
+      summary: instance statistics
+      description: return the statistics of the active instances
+      responses:
+        '200':
+          description: active instance statistics
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  active:
+                    type: object
+                    properties:
+                      with_request:
+                        type: integer
+                        description: >-
+                          number of active instances linked to a request. For
+                          instance, custom api calls.
+                      without_request:
+                        type: integer
+                        description: >-
+                          number of active instances not linked to a request.
+                          For instance, scheduled tasks or bulk jobs.
+                      with_errors_with_request:
+                        type: integer
+                        description: >-
+                          number of active instances linked to a request with
+                          errors. For instance, custom api calls.
+                      with_errors_without_request:
+                        type: integer
+                        description: >-
+                          number of active instances not linked to a request
+                          with errors. For instance, scheduled tasks or bulk
+                          jobs.
+                      with_subs_in_error:
+                        type: integer
+                        description: number of active instances with subinstances in error.
   /api/v01/activities:
     get:
       summary: list activities
