@@ -1613,7 +1613,7 @@ paths:
                   id:
                     type: integer
 
-  /api/v01/filters/:id:
+  /api/v01/filters/{id}:
     parameters:
       - name: id
         in: query
@@ -1953,6 +1953,9 @@ paths:
                   support_reset_password:
                     type: boolean
                     description: the user can reset its password.
+                  need_password_change:
+                    type: boolean
+                    description: the user needs to change its password.
                   modules:
                     type: array
                     items:
@@ -2257,6 +2260,8 @@ paths:
                     - en
                 password:
                   type: string
+                need_password_change:
+                  type: boolean
                 status:
                   type: string
                   enum:
@@ -2340,6 +2345,12 @@ paths:
                   local_user:
                     type: boolean
                     description: the user is managed locally or by another system.
+                  support_reset_password:
+                    type: boolean
+                    description: the user can reset its password.
+                  need_password_change:
+                    type: boolean
+                    description: the user must change its password.
                   modules:
                     type: array
                     items:
@@ -2375,9 +2386,40 @@ paths:
                   token:
                     type: string
                     description: persistent token for API calls
+                  token_expiry_date:
+                    type: string
+                    format: date-time
+                    description: the token expiry date
+                  trusted_locs:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        user_id:
+                          type: number
+                        ip:
+                          type: string
+                        user_agent:
+                          type: string
+                        expiry_date:
+                          type: string
+                          format: date-time
+                        trusted:
+                          type: boolean
+                        last_use:
+                          type: string
+                          format: date-time
+                        created_on:
+                          type: string
+                          format: date-time
                   timezone:
                     type: string
                     description: timezone associated to the user (if any)
+                  entity:
+                    type: string
+                    description: the entity associated to the user (if any)
                   first_name:
                     type: string
                     description: user first name
@@ -2426,6 +2468,65 @@ paths:
                     description: list of references on which the user is administrator
     put:
       summary: update user details
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  minLength: 4
+                  maxLength: 255
+                email:
+                  type: string
+                is_system:
+                  type: boolean
+                profile_id:
+                  type: number
+                  nullable: true
+                ui_profile:
+                  type: string
+                language:
+                  type: string
+                  enum:
+                    - en
+                password:
+                  type: string
+                need_password_change:
+                  type: boolean
+                status:
+                  type: string
+                  enum:
+                    - ACTIVE
+                    - INATIVE
+                properties:
+                  type: object
+                timezone:
+                  type: string
+                  nullable: true
+                entity:
+                  type: string
+                  nullable: true
+                first_name:
+                  type: string
+                last_name:
+                  type: string
+                mobile_number:
+                  type: string
+                token:
+                  type: boolean
+                token_expiry_date:
+                  type: string
+                  format: date-time
+                two_fa_option:
+                  type: string
+                  enum:
+                    - none
+                    - email
+                    - totp
+                  nullable: true
+              additionalProperties: false
       responses:
         200:
           description: user updated
