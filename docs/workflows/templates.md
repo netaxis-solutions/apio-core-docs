@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Templates
 
-Most fields in the nodes can be evaluated as templates. The template engine is [Jinja2](https://jinja.palletsprojects.com/) and expose all the [buit-in's](https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters) of the language.
+Most fields in the nodes can be evaluated as templates. The default template engine is [Jinja2](https://jinja.palletsprojects.com/) and expose all the [buit-in's](https://jinja.palletsprojects.com/en/3.1.x/templates/#list-of-builtin-filters) of the language.
 
 To debug easily such fields, you can use the <a href="/../../help/template-playground" target="_blank">playground</a>.
 
@@ -82,3 +82,20 @@ It is extended with the following elements.
 | proxy_name | the name of the proxy (only filled in processes started with proxy binding) |
 | worker_env | a dictionary containing the environment variables of the worker process (note: it allows to attach different values depending on the running location) |
 | user | the user object of the current user (only filled when the instance has an owner defined) |
+
+## Alternatives
+
+While jinja2 is the default template engine, you can use other engines by specifying the `engine` attribute in the field (just under the template in the editor).
+
+![template-engines-alternatives](img/template-engines-alternatives.png)
+
+:::tip
+
+Jinja2 is a Python based template engine, so it is the most extensible and powerful engine available.
+*But* because it is Python based, it is not the fastest engine available. If you have a lot of templates to evaluate, or templates with big data or slow templates, you may want to consider using a faster and lighter engine like Pongo2.
+
+:::
+
+### Pongo2
+
+Documentation: [https://github.com/flosch/pongo2](https://github.com/flosch/pongo2)
