@@ -103,3 +103,11 @@ Proprietary protocol used by custom company implementation of IdP.
 | --------- | ----------- |
 | Proxies | Map the proxies allowed to authenticate via this provider. And to which gateway they need to go. |
 | Authorisation handler | The authorisation handler to use. When set to `map to broadsoft user`, the `Username mapping template` can be used to transform the SSO username into Broadsoft username and attributes from Broadsoft bound to the APIO core user. |
+
+:::info
+
+The system level flag in the [User creation rules](#user-creation-rules) are not available for Broadsoft users auto-provisioning.<br/>
+Broadsoft users can still be created (and manually granted with the system flag) but cannot manage the platform at system level automatically.<br/>
+Past experience shows that the risk is too high to allow this.
+
+:::
