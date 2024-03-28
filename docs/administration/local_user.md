@@ -16,25 +16,25 @@ Once signed in, a user may consult its profile attributes and possibly change hi
 
 | Property | Description |
 | --- | --- |
-| `Username` | The user's username. (refer to the IdP username if the user is managed by an external IdP) |
-| `Firstname` | The user's first name. |
-| `Lastname` | The user's last name. |
-| `Mobile number` | The user's mobile number. |
-| `Email` | The user's email address. |
-| `System` | Whether the user has the system level flag. |
-| `Profile` | The user's profile. |
-| `UI Profile` | The user's UI profile. |
-| `Registered on` | The date the user was registered. |
-| `Language` | The user's language. (may differ from the language set in the IdP) |
-| `Timezone` | The user's timezone. |
-| `Roles` | The user's roles for manual actions to be assigned on the platform. |
-| `Properties` | The user's properties. |
-| `New password` | The user's new password. |
-| `Confirm new password` | The user's new password confirmation. |
-| `Current password` | The user's current password. (mandatory when changing current password) |
-| `M2M token` | The user's API token. |
-| `2FA option` | The user's 2FA option. |
-| `Passkeys` | The user's passkeys to be used for Passwordless authentication (Webauthn). |
+| Username | The user's username. (refer to the IdP username if the user is managed by an external IdP) |
+| Firstname | The user's first name. |
+| Lastname | The user's last name. |
+| Mobile number | The user's mobile number. |
+| Email | The user's email address. |
+| System | Whether the user has the system level flag. |
+| Profile | The user's profile. |
+| UI Profile | The user's UI profile. |
+| Registered on | The date the user was registered. |
+| Language | The user's language. (may differ from the language set in the IdP) |
+| Timezone | The user's timezone. |
+| Roles | The user's roles for manual actions to be assigned on the platform. |
+| Properties | The user's properties. |
+| New password | The user's new password. |
+| Confirm new password | The user's new password confirmation. |
+| Current password | The user's current password. (mandatory when changing current password) |
+| M2M token | The user's API token. |
+| 2FA option | The user's 2FA option. |
+| Passkeys | The user's passkeys to be used for Passwordless authentication (Webauthn). |
 
 :::danger
 
