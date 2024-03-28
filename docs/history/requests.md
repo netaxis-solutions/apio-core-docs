@@ -56,7 +56,7 @@ The request is displayed in a JSON viewer with at least the following attributes
 
 On the right side of the JSON viewer, there is a set of buttons to
 - **Force close / Reopen**: Forcibly close the instance or reopen it.
-- **Request as CSV**: Download the request as a CSV file.
+- **Request as JSON**: Download the request as a JSON file.
 - **Context as JSON**: Download the context as a JSON file.
 - **Auto-refresh**: Enable or disable the auto-refresh of the request / workflow details.
 
