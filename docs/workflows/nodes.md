@@ -681,6 +681,7 @@ Create a new user locally on the system.
 | password_context_key | The context variable to assign the password to. |
 | auth_backend | The authentication backend to use. <br /> This is the name of the authentication backend as defined in the APIO core configuration. |
 | entity | The entity of the new user. If it's set, the user is treated as a technical user for M2M exchanges. |
+| force_password_change | Whether to force the user to change his password at the next login. |
 
 ## Update user
 
@@ -707,10 +708,10 @@ Empty fields are not updated.
 | ui_profile | The UI profile of the user. <br /> This only influence the view of the user in the APIO core UI. |
 | properties | The properties of the user. <br /> This is a JSON object. |
 | user_id_context_key | The context variable to assign the user ID to. |
-| password_context_key | The context variable to assign the password to. |
-| auth_backend | The authentication backend to use. <br /> This is the name of the authentication backend as defined in the APIO core configuration. |
+| two_fa_option | The 2FA option to assign to the user (only email is available) |
 | user_id_context_key | The context variable to assign the user ID to. |
 | entity | The entity of the user. If it's set, the user is treated as a technical user for M2M exchanges. |
+| force_password_change | Whether to force the user to change his password at the next login. |
 
 ## Delete user
 
