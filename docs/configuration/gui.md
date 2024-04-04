@@ -10,7 +10,7 @@ The APIO core comes with a GUI that allows you to manage the APIO core. This GUI
 
 | Attribute | Description |
 | --------- | ----------- |
-| is Prod? | Whether the GUI should indicate this is a TEST or PROD environment. |
+| Label | [optional] free text displayed on the login page and in the navigation bar, usually used to specify a platform name or an environment amongst others.<br/>Better to keep it short, to not screw the navigation bar on smaller screens.<br/><br/><i>Sample login page</i><br/>![label-login](img/gui-label-login.png)<br/><i>Sample navigation bar</i><br/>![label-navbar](img/gui-label-navbar.png) |
 | Modules | The list of modules / pages to enable in the GUI. |
 | Default welcome mail template | The default mail template used to send welcome mails when a new local user is created via API and no password is provided. |
 | Default reset password mail template | The default mail template used to send reset password mails when a user requests a password reset via API. |
