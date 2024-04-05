@@ -210,6 +210,14 @@ The node rely on the currently running session of the user. If the user is not l
 
 :::
 
+:::caution
+
+That node is affected by an old time bug which always produce a body as a string.<br/>
+So interracting with the body would need to use `| json` to dig into it (e.g `{{ (output.body | json).attribute... }}`).<br/>
+Solving that bug would break too many existing workflows for now.
+
+:::
+
 ![proxy session call](img/node-proxy-session-call.png)
 
 | Attribute | Description |
