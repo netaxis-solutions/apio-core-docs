@@ -6,6 +6,18 @@ sidebar_position: 7
 
 Some versions need some changes to the server configuration or the database.
 
+## &gt;= 2.13.0
+
+The docker image is based on Debian bookworm (12) now. Due to https://github.com/docker-library/golang/issues/467#issuecomment-1601845758
+
+running on Docker version < 20.10.24 may require
+```bash
+    security_opt:
+      - seccomp:unconfined
+```
+
+to be added to the sections in the docker-compose.yml file
+
 ## &lt; 2.10.0 to &gt;= 2.11.0
 
 The encryption 'Fernet32' is not supported anymore. So the internal key `document-storage` is not valid anymore.
