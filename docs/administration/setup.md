@@ -35,28 +35,44 @@ version: '3'
 services:
   nginx:
     image: nginx:latest
-    ports:
-      - 80:80
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-    depends_on:
-      - apio
-      - px1
     restart: always
-  
-  apio:
-    image: docker.bxl.netaxis.be/apio:latest
     ports:
-      - 5000:5000
+      - "80:80"
     volumes:
-      - static-www:/usr/www
-    restart: always
+      - static-files:/www/
+      - ./etc/nginx.conf:/etc/nginx/conf.d/default.conf
+      - /var/log/nginx:/var/log/nginx
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}"
 
-  px1:
-    image: docker.bxl.netaxis.be/px1:latest
-    ports:
-      - 5000:5000
+  core:
+    image: docker.bxl.netaxis.be/apio_bsft/core:2.14.0
+    command: /usr/local/go/server -workflows -port=5000 -host=0.0.0.0 -cleanup
     restart: always
+    environment:
+      - DB=postgres://<username>:<password>@<hostname>:<port>/<database>
+      - VIRTUAL_ENV=/opt/apio_core
+    volumes:
+      - static-files:/usr/local/www/
+      - /var/log/apio:/var/log/apio
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}"
+
+  p1:
+    image: docker.bxl.netaxis.be/apio_bsft/core:2.14.0
+    command: /usr/local/go/server -workflows -port=5000 -host=0.0.0.0 -proxy=/api/v01/p1:bwks
+    restart: always
+    environment:
+      - DB=postgres://<username>:<password>@<hostname>:<port>/<database>
+      - VIRTUAL_ENV=/opt/apio_core
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}"
 
 volumes:
     static-www:
@@ -79,6 +95,138 @@ services:
     [...]
 +   volumes:
 +     - /var/run/docker.sock:/var/run/docker.sock
+```
+
+#### Scheduler
+
+If the platform needs to run recurrent jobs or timers, the scheduler service must be started:
+
+```yaml
+# docker-compose.yml
+version: '3'
+
+services:
+  [...]
+  scheduler:
+    image: docker.bxl.netaxis.be/apio_bsft/core:2.14.0
+    command: /usr/local/go/scheduler
+    restart: always
+    environment:
+      - SCH_DB=postgres://<username>:<password>@<hostname>:<port>/<database>
+      - VIRTUAL_ENV=/opt/apio_core
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}"
+```
+
+#### Webhooks
+
+If the platform needs to trigger webhooks, the webhook service must be started:
+
+```yaml
+# docker-compose.yml
+version: '3'
+
+services:
+  [...]
+  webhooks:
+    image: docker.bxl.netaxis.be/apio_bsft/core:2.14.0
+    command: /usr/local/go/webhooks
+    restart: always
+    environment:
+      - WHK_DB=postgres://<username>:<password>@<hostname>:<port>/<database>
+    extra_hosts:
+      - host.docker.internal:host-gateway
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}"
+```
+
+#### Webex Gateway
+
+If the platform needs to interact with a Webex Teams API, the webex gateway service must be started:
+
+```yaml
+# docker-compose.yml
+version: '3'
+
+services:
+  [...]
+  webex_gw:
+    image: docker.bxl.netaxis.be/apio_bsft/core:2.14.0
+    command: /usr/local/go/webex_gw -port=9001 -tokensFile=/opt/tokens/.tokens
+    restart: always
+    environment:
+      - client_id=<client_id>
+      - client_secret=<client_secret>
+      - redirect_uri=https://<apio-core-host>/api/v01/webex/auth/code
+    expose:
+      - 9001
+    volumes:
+      - /opt/webex_gw:/opt/tokens
+    logging:
+      driver: syslog
+      options:
+        tag: "{{.Name}}"
+```
+
+### rsyslog
+
+```
+$FileCreateMode 0644
+
+if $syslogtag contains 'apio_core_p1' then \
+  /var/log/apio/px1n.log
+  &stop
+
+if $syslogtag contains 'apio_core_core' then \
+  /var/log/apio/core.log
+  &stop
+
+if $syslogtag contains 'apio_core_webhooks' then \
+  /var/log/apio/webhooks.log
+  &stop
+
+if $syslogtag contains 'apio_core_webex_gw' then \
+  /var/log/apio/webex_gw.log
+  &stop
+
+if $syslogtag contains 'apio_core_scheduler' then \
+  /var/log/apio/scheduler.log
+  &stop
+
+$FileCreateMode 0644
+```
+
+### logrotate
+
+```
+/var/log/apio/*.log
+{
+       missingok
+       daily
+       rotate 30
+       notifempty
+       copytruncate
+       compress
+}
+
+/var/log/nginx/*.log
+{
+	missingok
+	daily
+	rotate 20
+	notifempty
+	copytruncate
+	compress
+	delaycompress
+	sharedscripts
+	postrotate
+		docker-compose -f /opt/apio_core/docker-compose.yml exec nginx nginx -s reload
+	endscript
+}
 ```
 
 ## Time to start
