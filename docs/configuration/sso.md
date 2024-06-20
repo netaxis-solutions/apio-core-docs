@@ -24,7 +24,7 @@ The button label is `Login with ` followed by the name of the provider entry.
 
 Even if the IdP accept the authentication, APIO core may reject it if the user doesn't match some extra rules. (e.g. the user is not in the correct group / organization)
 
-The rules are simple expression based on the element of the token IdP decoded. (e.g `hd == 'mycompany.com'`)
+The rules are simple expressions based on the element of the token IdP decoded. (e.g `hd == 'mycompany.com'` when the attribute `hd` is returned by the IdP in the protocol OIDC)
 
 ## User creation rules
 
@@ -96,6 +96,33 @@ APIO core trusts these headers only if the Webseal proxy IP appears in the list 
 Proprietary protocol used by custom company implementation of IdP.
 
 ### Broadsoft
+
+Broadsoft is integrated in the regular login API of APIO core.
+
+The `extra rules` and `user creation rules` are evaluated with the following attributes:
+
+- `client_ip` is the IP of the client.
+- `is_client_ip_private` is true if the client IP is in a private range.
+- `auth` is the answer from the [Broadsoft gateway login API](https://apio-docs.bxl.netaxis.be/auth/login.html#post--api-v1-login-).
+- `is_system` is true if the user is a system user (either on Broadsoft or on the core).
+
+#### Samples
+
+##### Prevent system level users to use Broadsoft SSO
+
+Resellers (`access_type == 1`) is a special kind of users that can manage several tenants, so they are created at system level *but* restricted by the Broadsoft gateway.
+
+```
+not is_system or auth.profile.access_type == 1
+```
+
+##### Prevent Broadsoft system and provisioning users to use Broadsoft SSO from public IPs
+
+```
+(auth.profile.broadsoft_type != "System" or auth.profile.broadsoft_type != "Provisioning") or is_client_ip_private
+```
+
+#### Authorisation handler
 
 ![SSO broadsoft](img/new-sso-broadsoft.png)
 

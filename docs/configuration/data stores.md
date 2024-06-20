@@ -12,3 +12,10 @@ Currently only 2 data stores are supported.
 | ---- | --- |
 | MySQL | mysql://user:password@host:port/database |
 | PostgreSQL | postgres://user:password@host:port/database |
+
+:::caution
+
+If username and passwords contain special characters, you should URL encode them.<br />
+Plus, passwords are obfuscated using `********`, so you can update them without revealing the original password.
+
+:::

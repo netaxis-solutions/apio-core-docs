@@ -22,6 +22,12 @@ Unhealthy clients are still used in the HTTP calls nodes.
 
 ## Authentication methods
 
+:::caution
+
+Passwords, tokens and secrets are obfuscated using `********`, so you can update them without revealing the original password.
+
+:::
+
 ### OAuth1
 
 [OAuth1](https://oauth.net/core/1.0a/) is an open standard for access delegation, commonly used as a way for Internet users to grant websites or applications access to their information on other websites but without giving them the passwords.

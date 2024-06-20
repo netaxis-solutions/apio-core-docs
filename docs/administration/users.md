@@ -27,3 +27,9 @@ When the flag 'Force change password' the user can sign in but is forced to chan
 ### M2M token
 
 An administrator (whatever his level) may regenerate or remove a user M2M token, but he can't see it. Except if the user represent an entity, in that case, the token is visible and can be copied.
+
+### Login attempts
+
+The last 15 login attempts (succesful or not) are recorded and displayed in the user details.
+
+<Image img={require('./img/login_attempts.png')} />
