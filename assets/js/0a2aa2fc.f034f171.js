@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapio_core=self.webpackChunkapio_core||[]).push([[7228],{93204:e=>{e.exports=JSON.parse('{"metadata":{"permalink":"/apio-core-docs/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":4,"blogDescription":"Blog","blogTitle":"Blog"}}')}}]);
