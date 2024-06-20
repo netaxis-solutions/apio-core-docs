@@ -68,7 +68,7 @@ If the returned status code is not in the `http_codes` attribute, and the `error
 | session_holder | The session holder to use. |
 | method | The HTTP method to use. |
 | url | The URL to call. |
-| body | [optional] The body of the request. |
+| body | [optional] The body of the request.<br /><table><tr><th>Default</th><td>The body is evaluated as a template and sent as such</td></tr><tr><th>Form</th><td>The body is sent as a HTML form data (`Content-Type: application/x-www-form-urlencoded`)</td></tr><tr><th>Multipart</th><td>The body is sent as a multipart form data. Each field will be turned into a different part in the body.<br />A file can be sent using a reference to a document attached to the instance using a reference as `# documents.<name>`</td></tr></table> |
 | output_context_key | The context variable to assign the result to. |
 | cache_key | [optional] The cache key to use. |
 | cache_ttl | [optional] The cache timeout to use. |
@@ -370,6 +370,32 @@ Cancel a manual action.
 | Attribute | Description |
 | --- | --- |
 | description | The description of the manual action to cancel. |
+
+## Require user approval
+
+Technical name: `user_approval`
+
+The node will pause the workflow until a user approves or declines the action.
+
+The action is assigned to a user role *or to the owner of the instance*.
+
+![require user approval](img/node-user-approval.png)
+
+| Attribute | Description |
+| --- | --- |
+| approbation_role | The role of the users that can approve the action. (if empty, the action is assigned to the instance owner) |
+| template | The template to use for the notification email (if empty, there is no notification sent) |
+| timeout | The timeout of the approval. (instance continues with the `timeout` output) |
+| description | The description of the approval action. |
+
+The email template used for notification is resolved in the context of the instance, and the following variables are also available:
+
+- `to`: The destination of the mail.
+- `from`: The sender of the mail.
+- `action_guid`: The GUID of the action.
+- `instance_guid`: The GUID of the instance.
+- `action_path`: The API link to the action (e.g /api/v01/transactions/`guid`/actions/`guid`).
+- `outputs`: The possible outputs of the action (`approved` and `declined`).
 
 ## Send email
 

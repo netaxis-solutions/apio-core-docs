@@ -2,6 +2,8 @@
 sidebar_position: 2
 ---
 
+import Image from '@theme/IdealImage';
+
 # Authentication
 
 APIO core supports multiple authentication mechanisms. You can use them to authenticate your users and to authenticate your API calls.
@@ -200,6 +202,8 @@ The template name is `mails.reset_password` by default, but it can contain the f
 
 e.g `mails.reset_password.{ui_id}.{language}` or `mails.reset_password.{ui_id}`.
 
+Such reset password email can only be sent once every 5 minutes.
+
 :::caution
 
 For security reasons, the reset password API does not return any error if the user does not exist.
@@ -211,3 +215,17 @@ For security reasons, the reset password API does not return any error if the us
 Other users (SSO users) can reset their password using the reset password API of the IdP.
 
 :::
+
+## Customisation
+
+The reset password process might require some customisation to fit specific needs (e.g. custom email API, setting user password in different places).
+
+The reset password API process can be configured to use a custom process by setting the `Reset password notification workflow` and `Post-reset password workflow` configuration parameter in the GUI section (see [configuration documentation](configuration/gui)).
+
+### Notification flow
+
+<Image img={require('./img/reset-password-notification-flow.png')} />
+
+### Execution flow
+
+<Image img={require('./img/reset-password-exec-flow.png')} />

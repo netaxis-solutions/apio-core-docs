@@ -2,17 +2,19 @@
 sidebar_position: 6
 ---
 
+import Image from '@theme/IdealImage';
+
 # Users
 
 Users are the people who can access the APIO core software. They can be local users (stored in the APIO core software database) or external users (managed in an external system).
 
 ## Listing
 
-![Users](img/users.png)
+<Image img={require('./img/users.png')} />
 
 ## Update user
 
-![Update user](img/update_user.png)
+<Image img={require('./img/update_user.png')} />
 
 ### External users
 

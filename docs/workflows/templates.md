@@ -60,6 +60,7 @@ It is extended with the following elements.
 | Function | Description | Sample |
 | --- | --- | --- |
 | now | compute the current date and time | <code>&#123;&#123; now() }}</code> |
+| tz | apply a timezone to a date | <code>&#123;&#123; now(tz('Europe/Paris')) }}</code> |
 | timedelta | apply a delta to a date | <code>&#123;&#123; now() &#124; timedelta(days=1) }}</code> |
 | utcnow | compute the current date and time in UTC | <code>&#123;&#123; utcnow() }}</code> |
 | uuid | generate a UUID | <code>&#123;&#123; uuid() }}</code> |

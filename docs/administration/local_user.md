@@ -2,6 +2,8 @@
 sidebar_position: 7
 ---
 
+import Image from '@theme/IdealImage';
+
 # Local User
 
 ![Local User](img/local_user.png)
@@ -12,7 +14,7 @@ Once signed in, a user may consult its profile attributes and possibly change hi
 
 ### Details
 
-![Profile](img/local_user_profile.png)
+<Image img={require('./img/local_user_profile.png')} />
 
 | Property | Description |
 | --- | --- |
@@ -55,3 +57,7 @@ When 2FA is enabled (either globally or per user), the user may consult and mana
 ### Login attempts
 
 The user may consult the 5 last login attempts made on his account whether they were succesful or not.
+
+### IP Whitelist
+
+The user may consult and manage his IP whitelist. This list is used to restrict the IP addresses from which the user can sign in. This is especially useful when the user is an external system (the traffic always come from the same ip network).

@@ -18,7 +18,7 @@ The following requirements are for a single server deployment:
 
 You can install APIO core platform on multiple ways:
 
-* Using [docker-compose](#docker-compose) with the official [docker images](https://)
+* Using [docker-compose](#docker-compose) with the official [docker images](http://docker.bxl.netaxis.be:8081)
 * Using [deb packages](#deb-packages)
 * Using [rpm packages](#rpm-packages)
 
