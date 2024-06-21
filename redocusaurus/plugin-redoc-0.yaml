@@ -605,6 +605,29 @@ paths:
           description: forbidden or you try to un-revoke your own account.
         '404':
           description: user not found
+  /api/v01/system/users/audit/search:
+    get:
+      summary: search for user audit logs
+      description: search for user audit logs
+      responses:
+        '200':
+          description: audit records
+  /api/v01/system/users/audit/usernames:
+    get:
+      summary: list usernames present in the audit records
+      description: list usernames present in the audit records
+      responses:
+        '200':
+          description: usernames
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  usernames:
+                    type: array
+                    items:
+                      type: string
   /api/v01/logs:
     get:
       summary: list log files
@@ -1890,6 +1913,8 @@ paths:
                           type: number
                         user_id:
                           type: number
+                        username:
+                          type: string
                         channel:
                           type: string
                         target:
@@ -2074,6 +2099,21 @@ paths:
                           type: string
                         success:
                           type: boolean
+                  with_ip_limits:
+                    type: boolean
+                    description: the user has IP limits enabled
+                  ip_limits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        ip:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
                   last_use:
                     type: string
                     format: date-time
@@ -2201,6 +2241,8 @@ paths:
                           type: string
                         email:
                           type: string
+                        is_system:
+                          type: boolean
                         first_name:
                           type: string
                         last_name:
@@ -2474,6 +2516,21 @@ paths:
                   last_use:
                     type: string
                     format: date-time
+                  with_ip_limits:
+                    type: boolean
+                    description: the user has IP limits enabled
+                  ip_limits:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: number
+                        ip:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
                   admin_of:
                     type: array
                     items:
@@ -2717,6 +2774,50 @@ paths:
       responses:
         '200':
           description: credential deleted
+  /api/v01/system/users/{user_id}/ip_whitelist:
+    parameters:
+      - name: user_id
+        in: path
+        schema:
+          type: integer
+        description: the user id
+        required: true
+    post:
+      summary: add ip whitelist
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ip:
+                  type: string
+                  format: ipv4
+              required:
+                - ip
+              additionalProperties: false
+      responses:
+        '200':
+          description: ip whitelisted
+  /api/v01/system/users/{user_id}/ip_whitelist/{id}:
+    parameters:
+      - name: user_id
+        in: path
+        schema:
+          type: integer
+        description: the user id
+        required: true
+      - name: id
+        in: path
+        schema:
+          type: integer
+        description: the whitelist ip id
+        required: true
+    delete:
+      summary: delete ip whitelist
+      responses:
+        '200':
+          description: ip whitelist deleted
   /api/v01/system/user_profiles:
     get:
       summary: list user profiles
