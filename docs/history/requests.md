@@ -36,7 +36,7 @@ When the Broadsfot integration is enabled, and the request is not overloaded by 
 
 Every calls to custom routes (public or not) are logged in the database. So a user can see the details of the requests and their execution.
 
-Details are split in 2 tabs
+Details are split in 3 tabs
 
 ### Request
 
@@ -46,7 +46,7 @@ The request is displayed in a JSON viewer with at least the following attributes
 
 | Attribute | Description |
 | --------- | ----------- |
-| **body** | The body of the request. (The body is represented in a base64 encoded format if it is not a JSON) |
+| **body** | The body of the request.<br/>If the request was started with a multipart body containing files, they will appear in the `Attachments`section below.<br/>The body might be represented in a base64 encoded format if it cannot be parsed from the input stream. |
 | **content_type** | The content type of the request. |
 | **match_info** | The parameters extracted from the URL match. |
 | **method** | The HTTP method of the request. |
@@ -59,8 +59,6 @@ On the right side of the JSON viewer, there is a set of buttons to
 - **Request as JSON**: Download the request as a JSON file.
 - **Context as JSON**: Download the context as a JSON file.
 - **Auto-refresh**: Enable or disable the auto-refresh of the request / workflow details.
-
-Then there is a table with the context of the instance. The instance context refer to the context of the workflow instance. It is a set of key-value pairs that can be used by the workflow to store data during its execution. (sensitive data like passwords, tokens etc... are hidden)
 
 ### Workflow
 
@@ -142,6 +140,10 @@ When there is an error in the workflow, a panel is displayed with the details of
 #### Events
 
 A panel is displayed with the list of events received by the workflow. This can be useful to debug the workflow.
+
+### Context
+
+The instance context refer to the context of the workflow instance. It is a set of key-value pairs that can be used by the workflow tasks to store data over execution. (sensitive data like passwords, tokens etc... are obfuscated)
 
 ## Proxied request details
 
