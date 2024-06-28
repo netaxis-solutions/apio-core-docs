@@ -275,6 +275,12 @@ The body is a string that will be sent to the TCP server.
 | output_context_key | The context variable to assign the result to. |
 | output_hex | Whether the output should be converted to hexadecimal in the result. |
 
+## Cleanup cache
+
+Technical name: `cleanup_cache`
+
+Invalidate a set of cache keys.
+
 ## Context setter
 
 Technical name: `context_setter`
