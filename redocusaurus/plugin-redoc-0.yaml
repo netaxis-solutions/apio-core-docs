@@ -1877,6 +1877,73 @@ paths:
           description: not allowed
         '404':
           description: user or callback not found
+  /api/v01/system/users/activity:
+    get:
+      summary: search user activities and service usage
+      parameters:
+        - name: filter
+          in: query
+          schema:
+            type: object
+          description: the filter criteria.
+        - name: paging
+          in: query
+          schema:
+            type: object
+          description: the paging details.
+        - name: sorting
+          in: query
+          schema:
+            type: object
+          description: the sorting details.
+      responses:
+        '200':
+          description: user activities record
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  records:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        username:
+                          type: string
+                        timestamp:
+                          type: string
+                          format: date-time
+                        method:
+                          type: string
+                        service:
+                          type: string
+                  total_count:
+                    type: integer
+                    description: number of users matching the criteria
+                  limit:
+                    type: integer
+                    description: the limit applied in the search query
+                  offset:
+                    type: integer
+                    description: the offset applied in the search query
+                  sorting:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        direction:
+                          type: string
+                          enum:
+                            - asc
+                            - desc
+                        field:
+                          type: string
+                        model:
+                          type: string
+                      required:
+                        - direction
+                        - field
   /api/v01/system/users/audit:
     get:
       summary: search for audit records
