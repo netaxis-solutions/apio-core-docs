@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkapio_core=self.webpackChunkapio_core||[]).push([[1903],{1912:o=>{o.exports=JSON.parse('{"blogBasePath":"/apio-core-docs/blog","blogTitle":"Blog","authorsListPath":"/apio-core-docs/blog/authors"}')}}]);
