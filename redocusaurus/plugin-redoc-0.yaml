@@ -9,6 +9,21 @@ components:
       type: http
       scheme: bearer
 paths:
+  /api/v01/health:
+    get:
+      summary: health check
+      description: health check
+      responses:
+        '200':
+          description: healthy
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: should be "ok"
   /api/v01/auth/login:
     post:
       description: >
