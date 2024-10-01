@@ -637,6 +637,21 @@ Generate a random string and assign it to a context variable.
 | length | The length of the generated string. |
 | output_context_key | The context variable to assign the generated string to. |
 
+## Create QR code
+
+Technical name: `create_qr`
+
+Create a QR code image and attach it to the current context as PNG encoded in base64.
+
+![create qr](img/node-create-qr.png)
+
+| Attribute | Description |
+| --- | --- |
+| content | The content of the QR code. It can be a text, an URL or any string content. |
+| width | The width of the QR code. |
+| height | The height of the QR code. |
+| output_context_key | The context variable to assign the QR code to. |
+
 ## Set Request status
 
 Technical name: `set_request_status`
