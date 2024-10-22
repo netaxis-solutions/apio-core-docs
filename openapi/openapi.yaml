@@ -281,6 +281,9 @@ paths:
                 2fa_payload:
                   type: string
                   description: the JWT returned by the API call to the login endpoint
+                trust:
+                  type: boolean
+                  description: "mark the host has trusted, so the 2FA process will not take place next time. (default: false)"
               required:
                 - code
                 - 2fa_payload
@@ -3887,17 +3890,12 @@ paths:
                   description: the private key to be used in PEM format
                 demo:
                   type: boolean
-                dev:
-                  type: boolean
                 days:
                   type: number
                   description: the number of days the license is valid
                 max_activities:
                   type: number
                   description: the maximum number of activities allowed
-                expose_metrics:
-                  type: boolean
-                  description: allow the platform to expose metrics
       responses:
         200:
           description: license generated
