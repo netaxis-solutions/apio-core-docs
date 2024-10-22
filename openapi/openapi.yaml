@@ -3887,12 +3887,17 @@ paths:
                   description: the private key to be used in PEM format
                 demo:
                   type: boolean
+                dev:
+                  type: boolean
                 days:
                   type: number
                   description: the number of days the license is valid
                 max_activities:
                   type: number
                   description: the maximum number of activities allowed
+                expose_metrics:
+                  type: boolean
+                  description: allow the platform to expose metrics
       responses:
         200:
           description: license generated

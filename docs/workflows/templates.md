@@ -45,6 +45,7 @@ It is extended with the following elements.
 | to_datetime | convert a string to a datetime object | <code>&#123;&#123; '2021-01-01' &#124; to_datetime }}</code> |
 | to_bool | convert a string to a boolean (evaluate to true: "yes", "on", "1", "true", 1) | <code>&#123;&#123; 'true' &#124; to_bool }}</code> |
 | hmac | generate hash for a string, using a key (optional); supported digests: sha1, sha224, sha256 (default), sha384, sha512, blake2b, blake2s | <code>&#123;&#123; 'secret' &#124; hmac }}</code><br/><code>&#123;&#123; 'secret' &#124; hmac('key') }}</code><br/><code>&#123;&#123; 'secret' &#124; hmac('key', 'sha512') }}</code> |
+| chunked | split a list into chunks | <code>&#123;&#123; [1, 2, 3, 4, 5, 6] &#124; chunked(2) &#124; list }}</code> |
 
 ## Tests
 

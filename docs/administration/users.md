@@ -24,6 +24,10 @@ When the user is managed by an external system (IdP mainly), there is no passwor
 
 When the flag 'Force change password' the user can sign in but is forced to change his password at the next login. No other action is possible until the password is changed.
 
+### 2FA option
+
+The user can choose to enable 2FA and select the method (TOTP or SMS). But the administrator can force the 2FA activation and the method to use. In that case, only the email method can be forced.
+
 ### M2M token
 
 An administrator (whatever his level) may regenerate or remove a user M2M token, but he can't see it. Except if the user represent an entity, in that case, the token is visible and can be copied.
